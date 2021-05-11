@@ -1,7 +1,7 @@
 # QAConv
 
 ## Overview
-This repository maintains the QAConv dataset, a question answering dataset on informative conversations.
+This repository maintains the QAConv dataset, a question answering dataset on informative conversations including business emails, panel discussions, and work channels.
 
 Paper: [QAConv: Question Answering on Informative Conversations]()
 
@@ -140,15 +140,15 @@ The format of the data is as follow:
 }
 ```
 
-### Running Baselines
+## Running Baselines
 
-#### Retriever
+### Retriever
 ```console
 ❱❱❱ cd retriever
 ❱❱❱ ./run_retriver.sh
 ```
 
-#### Free-form
+### Free-form
 
 * Preprocess
 ```console
@@ -182,7 +182,7 @@ The format of the data is as follow:
 ❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-bm25.json
 ```
 
-#### Span-base
+### Span-base
 
 
 ## Report
