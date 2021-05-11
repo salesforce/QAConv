@@ -1,0 +1,4 @@
+gitpython
+rouge_score
+sacrebleu
+sentencepiece

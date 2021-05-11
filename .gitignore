@@ -1,0 +1,5 @@
+*.DS_Store
+*pyc
+data/
+!data/convert_txt.py
+retriever/output_retriever_rank_bm25_all.json

@@ -1,0 +1,19 @@
+CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node=2 --master_port=10004  run_qa.py \
+  --model_name_or_path roberta-base \
+  --output_dir save/roberta-base \
+  --train_file data/QA4KRC_TRAIN.json \
+  --validation_file data/QA4KRC_VALID.json \
+  --test_file data/QA4KRC_TEST.json \
+  --do_train \
+  --do_eval \
+  --per_device_train_batch_size 6 \
+  --learning_rate 3e-5 \
+  --logging_steps 50 \
+  --num_train_epochs 10 \
+  --max_seq_length 512 \
+  --warmup_steps 1000 \
+  --weight_decay 0.01 \
+  --cache_dir cache/ \
+  --evaluation_strategy epoch \
+  --sharded_ddp simple \
+  --save_total_limit 1 
