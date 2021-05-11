@@ -11,7 +11,7 @@ def convert(pred_txt_file, ques_json_file, exp_name):
     for qi, qa in enumerate(ques):
         out[qa["id"]] = pred[qi].strip()
     
-    with open("../../prediction/{}.json".format(exp_name), "w") as fout:
+    with open("../../../prediction/{}.json".format(exp_name), "w") as fout:
         json.dump(out, fout, indent=2)
 
 if __name__ == "__main__":
