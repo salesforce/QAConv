@@ -3,8 +3,67 @@
 ## Overview
 This repository maintains the QAConv dataset, a question answering dataset on informative conversations.
 
-Paper: 
+Paper: [QAConv: Question Answering on Informative Conversations]()
+
 Authors: Chien-Sheng (Jason) Wu, Andrea Madotto, Wenhao Liu, and Caiming Xiong
+
+## Leaderboard
+
+If you submit papers on QAConv, please consider sending a pull request to merge your results onto the leaderboard. By submitting, you acknowledge that your results are obtained without training on the val/test split and tuned on the val split not the test split. 
+
+### Chunk Mode Performance
+##### Zero-Shot
+|                             |     EM    |   F1  |  FZ-R |
+|-----------------------------|:---------:|:-----:|:-----:|
+| Human Performance           |   79.99   | 89.87 | 92.33 |
+| T5-3B (UnifiedQA)           |   66.77   | 76.98 | 81.77 |
+| T5-Large (UnifiedQA)        |   64.83   | 75.73 | 80.59 |
+| BERT-Large (SQuAD 2.0)      |   61.06   | 68.11 | 74.98 |
+| RoBERTa-Large (SQuAD 2.0)   |   59.04   | 66.54 | 73.80 |
+| T5-Base (UnifiedQA)         |   57.75   | 69.90 | 76.31 |
+| RoBERTa-Base (SQuAD 2.0)    |   57.75   | 64.53 | 72.40 |
+| GPT-3 (CoQA prompt)         |   53.72   | 67.45 | 72.94 |
+| T5-11B (UnifiedQA)          |   51.13   | 66.19 | 71.68 |
+| DistilBERT-Base (SQuAD 2.0) |   46.50   | 52.79 | 63.30 |
+| BERT-Base (SQuAD 2.0)       |   42.73   | 49.67 | 60.99 |
+
+##### Fine-Tune
+|                             |    EM    |   F1  |  FZ-R |
+|-----------------------------|:--------:|:-----:|:-----:|
+| T5-3B (UnifiedQA)           |   75.21  | 84.14 | 87.47 |
+| T5-Large (UnifiedQA)        |   73.54  | 83.03 | 86.61 |
+| RoBERTa-Large (SQuAD 2.0)   |   74.62  | 83.65 | 87.38 |
+| BERT-Large (SQuAD 2.0)      |   72.85  | 81.65 | 85.59 |
+| T5-Base (UnifiedQA)         |   71.20  | 80.92 | 84.74 |
+| RoBERTa-Base (SQuAD 2.0)    |   71.14  | 80.36 | 84.52 |
+| BERT-Base (SQuAD 2.0)       |   66.37  | 76.29 | 81.25 |
+| DistilBERT-Base (SQuAD 2.0) |   63.69  | 73.94 | 79.30 |
+
+### Full Mode Performance
+##### Zero-Shot
+|                                    |     EM    |   F1  |  FZ-R | 
+|:----------------------------------:|:---------:|:-----:|:-----:|
+| BM25 + T5-3B (UnifiedQA)           |   45.87   | 55.24 | 64.83 | 
+| BM25 + T5-Large (UnifiedQA)        |   44.08   | 53.17 | 63.17 | 
+| BM25 + BERT-Large (SQuAD 2.0)      |   42.19   | 47.59 | 59.41 | 
+| BM25 + RoBERTa-Large (SQuAD 2.0)   |   41.39   | 46.75 | 58.67 | 
+| BM25 + RoBERTa-Base (SQuAD 2.0)    |   41.11   | 46.15 | 58.35 |
+| BM25 + T5-Base (UnifiedQA)         |   39.68   | 49.76 | 60.51 |  
+| BM25 + DistilBERT-Base (SQuAD 2.0) |   33.66   | 38.19 | 52.28 | 
+| BM25 + BERT-Base (SQuAD 2.0)       |   30.80   | 35.80 | 50.50 | 
+
+##### Fine-Tune
+|                                    |    EM    |   F1  |  FZ-R | 
+|:----------------------------------:|:--------:|:-----:|:-----:|
+| BM25 + T5-3B (UnifiedQA)           |   51.44  | 58.80 | 68.10 | 
+| BM25 + RoBERTa-Large (SQuAD 2.0)   |   50.24  | 57.80 | 67.57 | 
+| BM25 + T5-Large (UnifiedQA)        |   49.64  | 57.58 | 67.36 | 
+| BM25 + BERT-Large (SQuAD 2.0)      |   48.99  | 56.60 | 66.40 | 
+| BM25 + RoBERTa-Base (SQuAD 2.0)    |   48.42  | 56.24 | 66.08 |
+| BM25 + T5-Base (UnifiedQA)         |   48.56  | 56.38 | 66.01 |  
+| BM25 + BERT-Base (SQuAD 2.0)       |   44.62  | 52.91 | 63.50 | 
+| BM25 + DistilBERT-Base (SQuAD 2.0) |   43.51  | 52.12 | 62.63 | 
+
 
 ## Dataset
 The format of the data is as follow:
@@ -81,9 +140,7 @@ The format of the data is as follow:
 }
 ```
 
-## Code
-
-### Running baselines in QAConv paper
+### Running Baselines
 
 #### Retriever
 ```console
@@ -114,13 +171,15 @@ The format of the data is as follow:
 * Inference
 ```console
 ❱❱❱ cd baseline/free_form/finetuning/
-❱❱❱ ./run_eval.sh 0 ../../../data/nmt/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ output/qaconv-allenai/unifiedqa-t5-base/ output/qaconv-allenai/unifiedqa-t5-base/prediction/
+❱❱❱ ./run_eval.sh 0 ../../../data/nmt/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base output/qaconv-allenai/unifiedqa-t5-base/prediction/
+❱❱❱ ./run_eval.sh 0 ../../../data/nmt-bm25/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base-bm25 output/qaconv-allenai/unifiedqa-t5-base/prediction-bm25/
 ```
 
 * Evaluation
 ```console
 ❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-zeroshot.json
 ❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base.json
+❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-bm25.json
 ```
 
 #### Span-base
