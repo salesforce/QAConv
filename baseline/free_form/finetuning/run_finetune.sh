@@ -10,7 +10,7 @@ CUDA_VISIBLE_DEVICES=${GPU} python3 -m torch.distributed.launch --nproc_per_node
     --evaluation_strategy "steps" \
     --predict_with_generate \
     --num_train_epochs 10 \
-    --data_dir ../../../data/ \
+    --data_dir ../../../data/nmt/ \
     --model_name_or_path ${MODEL} \
     --output_dir ./output/${RUN} \
     --per_device_train_batch_size ${BSZ} \

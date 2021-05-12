@@ -62,7 +62,7 @@ def preproc(question,article):
                     }
             dataset.append(temp)
 
-    print(f"NUMBER OF SKIPPED QA:{cnt_error}")
+    print(f"NUMBER OF SKIPPED QA CANNOT FIND SPAN: {cnt_error}")
     return dataset
 
 article = json.load(open("../../data/article_segment.json","r"))
@@ -70,13 +70,16 @@ question_trn = json.load(open(f"../../data/trn.json","r"))
 question_val = json.load(open(f"../../data/val.json","r"))
 question_tst = json.load(open(f"../../data/tst.json","r"))
 
-with open(f'../../data/QA4KRC_TRAIN.json', 'w') as outfile:
+print("Run train set...")
+with open(f'../../data/QAConv-squad-filtered_TRAIN.json', 'w') as outfile:
     json.dump({"data":preproc(question_trn,article),"version":2.0}, outfile, indent=4)
 
-with open(f'../../data/QA4KRC_VALID.json', 'w') as outfile:
+print("Run val set...")
+with open(f'../../data/QAConv-squad-filtered_VALID.json', 'w') as outfile:
     json.dump({"data":preproc(question_val,article),"version":2.0}, outfile, indent=4)
 
-with open(f'../../data/QA4KRC_TEST.json', 'w') as outfile:
+print("Run test set...")
+with open(f'../../data/QAConv-squad-filtered_TEST.json', 'w') as outfile:
     json.dump({"data":preproc(question_tst,article),"version":2.0}, outfile, indent=4)
 
 

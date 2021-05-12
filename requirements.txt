@@ -5,3 +5,10 @@ gitpython
 rouge_score
 sacrebleu
 sentencepiece
+rank_bm25
+transformers
+pylcs
+datasets
+tqdm<4.50.0
+fairscale
+

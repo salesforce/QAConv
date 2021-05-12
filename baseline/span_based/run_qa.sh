@@ -1,9 +1,9 @@
 CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --master_port=10001  run_qa.py \
   --model_name_or_path twmkn9/distilbert-base-uncased-squad2 \
   --output_dir save/distilbert \
-  --train_file ../../data/QA4KRC_TRAIN.json \
-  --validation_file ../../data/QA4KRC_VALID.json \
-  --test_file ../../data/QA4KRC_TEST.json \
+  --train_file ../../data/QAConv-squad-filtered_TRAIN.json \
+  --validation_file ../../data/QAConv-squad-filtered_VALID.json \
+  --test_file ../../data/QAConv-squad-filtered_TEST.json \
   --do_train \
   --do_eval \
   --version_2_with_negative \
@@ -20,12 +20,12 @@ CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --m
   --sharded_ddp simple \
   --save_total_limit 1
 
-CUDA_VISIBLE_DEVICES=2 python -m torch.distributed.launch --nproc_per_node=1 --master_port=10002  run_qa.py \
+CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --master_port=10002  run_qa.py \
   --model_name_or_path deepset/roberta-base-squad2 \
   --output_dir save/roberta-base \
-  --train_file ../../data/QA4KRC_TRAIN.json \
-  --validation_file ../../data/QA4KRC_VALID.json \
-  --test_file ../../data/QA4KRC_TEST.json \
+  --train_file ../../data/QAConv-squad-filtered_TRAIN.json \
+  --validation_file ../../data/QAConv-squad-filtered_VALID.json \
+  --test_file ../../data/QAConv-squad-filtered_TEST.json \
   --do_train \
   --do_eval \
   --version_2_with_negative \
@@ -45,9 +45,9 @@ CUDA_VISIBLE_DEVICES=2 python -m torch.distributed.launch --nproc_per_node=1 --m
 CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --master_port=100111  run_qa.py \
   --model_name_or_path deepset/roberta-large-squad2 \
   --output_dir save/roberta-large \
-  --train_file ../../data/QA4KRC_TRAIN.json \
-  --validation_file ../../data/QA4KRC_VALID.json \
-  --test_file ../../data/QA4KRC_TEST.json \
+  --train_file ../../data/QAConv-squad-filtered_TRAIN.json \
+  --validation_file ../../data/QAConv-squad-filtered_VALID.json \
+  --test_file ../../data/QAConv-squad-filtered_TEST.json \
   --do_train \
   --do_eval \
   --version_2_with_negative \
@@ -66,12 +66,12 @@ CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --m
   --save_total_limit 1 
 
 
-CUDA_VISIBLE_DEVICES=8 python -m torch.distributed.launch --nproc_per_node=1 --master_port=10004  run_qa.py \
+CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --master_port=10004  run_qa.py \
   --model_name_or_path deepset/bert-base-cased-squad2 \
   --output_dir save/bert-base \
-  --train_file ../../data/QA4KRC_TRAIN.json \
-  --validation_file ../../data/QA4KRC_VALID.json \
-  --test_file ../../data/QA4KRC_TEST.json \
+  --train_file ../../data/QAConv-squad-filtered_TRAIN.json \
+  --validation_file ../../data/QAConv-squad-filtered_VALID.json \
+  --test_file ../../data/QAConv-squad-filtered_TEST.json \
   --do_train \
   --do_eval \
   --version_2_with_negative \
@@ -88,12 +88,12 @@ CUDA_VISIBLE_DEVICES=8 python -m torch.distributed.launch --nproc_per_node=1 --m
   --sharded_ddp simple \
   --save_total_limit 1 
 
-CUDA_VISIBLE_DEVICES=9 python -m torch.distributed.launch --nproc_per_node=1 --master_port=10005  run_qa.py \
+CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --master_port=10005  run_qa.py \
   --model_name_or_path deepset/bert-large-uncased-whole-word-masking-squad2 \
   --output_dir save/bert-large \
-  --train_file ../../data/QA4KRC_TRAIN.json \
-  --validation_file ../../data/QA4KRC_VALID.json \
-  --test_file ../../data/QA4KRC_TEST.json \
+  --train_file ../../data/QAConv-squad-filtered_TRAIN.json \
+  --validation_file ../../data/QAConv-squad-filtered_VALID.json \
+  --test_file ../../data/QAConv-squad-filtered_TEST.json \
   --do_train \
   --do_eval \
   --version_2_with_negative \

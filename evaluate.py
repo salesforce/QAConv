@@ -318,6 +318,7 @@ if __name__ == '__main__':
   if OPTS.folder:
       table = []
       for f in glob.glob(f"{OPTS.pred_file}/*.json"):
+          if "samples.json" in f: continue
           print(f)
           OPTS.pred_file = f
           dic =  main(OPTS)
