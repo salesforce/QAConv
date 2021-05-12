@@ -7,6 +7,10 @@ Paper: [QAConv: Question Answering on Informative Conversations]()
 
 Authors: Chien-Sheng (Jason) Wu, Andrea Madotto, Wenhao Liu, and Caiming Xiong
 
+## Citation
+Please cite our work if you use the data or code in this repository
+
+
 ## Leaderboard
 
 If you submit papers on QAConv, please consider sending a pull request to merge your results onto the leaderboard. By submitting, you acknowledge that your results are obtained without training on the val/test split and tuned on the val split not the test split. 
@@ -134,69 +138,71 @@ Unzip the `data.zip` file and files below are shown under the data folder.
 
 ## Running Baselines
 
+### Dependency
+First, install requirements by `pip install -r requirements.txt`. 
+
+If you encounter error while installing fairscale with error message `AttributeError: type object 'Callable' has no attribute '_abc_registry'`, try `pip uninstall typing` then redo the installation. 
+
+
 ### Retriever
 ```console
-❱❱❱ cd retriever
+❱❱❱ cd ./retriever
 ❱❱❱ ./run_retriver.sh
 ```
 
 ### Free-form
 
-* Preprocess
+* Preprocess (./data)
 ```console
-❱❱❱ cd data
 ❱❱❱ python convert_txt.py
 ```
 
-* Zero-shot
+* Zero-shot (./baseline/free_form/)
 ```console
-❱❱❱ cd baseline/free_form/
 ❱❱❱ ./run_zs.sh
 ```
 
-* Training
+* Training (./baseline/free_form/finetuning/)
 ```console
-❱❱❱ cd baseline/free_form/finetuning/
 ❱❱❱ ./run_finetune.sh 0,1 2 allenai/unifiedqa-t5-base 8
 ```
 
-* Inference
+* Inference (./baseline/free_form/finetuning/)
 ```console
-❱❱❱ cd baseline/free_form/finetuning/
 ❱❱❱ ./run_eval.sh 0 ../../../data/nmt/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base output/qaconv-allenai/unifiedqa-t5-base/prediction/
 ❱❱❱ ./run_eval.sh 0 ../../../data/nmt-bm25/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base-bm25 output/qaconv-allenai/unifiedqa-t5-base/prediction-bm25/
 ```
 
-* Evaluation
-```console
-❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-zeroshot.json
-❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base.json
-❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-bm25.json
-```
-
 ### Span-base
 
-* Preprocess
+* Preprocess (./baseline/span_based)
 ```console
-❱❱❱ cd baseline/span_based
+❱❱❱ cd ./baseline/span_based
 ❱❱❱ python preproc.py
 ```
 
-* Training
+* Training (./baseline/span_based)
 ```console
 ❱❱❱ ./run_qa.sh
 ```
 
-* Inference 
+* Inference (./baseline/span_based)
 ```console
 ❱❱❱ python test_pipe.py --gpu 0
 ```
 
-* Evaluation
+### Evaluation (./)
+
+* Evaluate one single prediction file
 ```console
-❱❱❱ cd ../../
+❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-zeroshot.json
+```
+
+* Evaluate the whole folder with all the prediction files
+```console
 ❱❱❱ python evaluate.py data/tst.json prediction/ --folder
 ```
 
+
 ## Report
-Please create an issue or send email to wu.jason@salesforce.com to report any questions/bugs/etc.
+Please create an issue or send an email to wu.jason@salesforce.com for any questions/bugs/etc.
