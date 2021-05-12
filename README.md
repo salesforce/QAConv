@@ -66,7 +66,8 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 
 
 ## Dataset
-The format of the data is as follow:
+Unzip the `data.zip` file and files below are shown under the data folder.
+
 * Question-Answer files (`trn.json`, `val.json`, `tst.json`)
 ```
 [
@@ -106,11 +107,6 @@ The format of the data is as follow:
         "speaker": "LUCY MORGAN",
         "text": "I think Romney will pull it out. The newest poll, the better of the polls, Quinnipiac, came out this morning giving Romney a one-point advantage, within the margin of error. But I think the advantage he has is the early vote and the establishment Republicans who are behind him."
       },
-      {
-        "id": "newsidal-NPR-170-136",
-        "speaker": "NEAL CONAN, HOST",
-        "text": "Let's see if we can get some callers on the line, 800-989-8255. Florida primary voters, have you made up your minds yet? We'll start with Marie(ph), and Marie's on with us from Fort Lauderdale."
-      },
       ...
     ],
     "word_count": 204
@@ -131,10 +127,6 @@ The format of the data is as follow:
       "text": "These are not cogent thoughts..."
     },
     {
-      "id": "newsidal-NPR-170-2",
-      "speaker": "NEAL CONAN, HOST",
-      "text": "...edition of the Political Junkie."
-    },
     ...
   ]
 }
