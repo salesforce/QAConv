@@ -53,24 +53,24 @@ if __name__ == "__main__":
     ## ZERO SHOT
     for mod in ["twmkn9/distilbert-base-uncased-squad2","deepset/roberta-base-squad2","deepset/roberta-large-squad2","deepset/bert-base-cased-squad2","deepset/bert-large-uncased-whole-word-masking-squad2"]:
         name = mod.split('/')[1] if "/" in mod else mod
-        pred_path = f"../../prediction/{name}-zero-shot_new_test.json"
+        pred_path = f"../../prediction/{name}-zero-shot.json"
         run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu)
 
-        pred_path = f"../../prediction/{name}-zero-shot_new_test_bm25.json"
+        pred_path = f"../../prediction/{name}-zero-shot_bm25.json"
         run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="bm25")
         
-        pred_path = f"../../prediction/{name}-zero-shot_new_test_dpr.json"
-        run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="dpr")
+        #pred_path = f"../../prediction/{name}-zero-shot_new_test_dpr.json"
+        #run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="dpr")
 
     ## finetuned models
     for mod in ["save/distilbert","save/bert-base","save/bert-large-largebsz","save/roberta-base","save/roberta-large"]:
         name = mod.split('/')[1] if "/" in mod else mod
         
-        pred_path = f"../../prediction/{name}-finetuned_new_test.json"
+        pred_path = f"../../prediction/{name}-finetuned.json"
         run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu)
         
-        pred_path = f"../../prediction/{name}-finetuned_new_test_bm25.json"
+        pred_path = f"../../prediction/{name}-finetuned_bm25.json"
         run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="bm25")
         
-        pred_path = f"../../prediction/{name}-finetuned_new_test_dpr.json"
-        run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="dpr")
+        #pred_path = f"../../prediction/{name}-finetuned_new_test_dpr.json"
+        #run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="dpr")

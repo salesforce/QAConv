@@ -14,6 +14,6 @@ CUDA_VISIBLE_DEVICES=${gpu} python run_eval.py ${CHECKPOINT} ${DATA_TXT_DIR}/tes
     --device cuda \
     --bs 8
 
-python convert_pred_txt2json.py -ques ${DATA_RAW_DIR}/tst.json \
-    -pred ${OUT_DIR}/test-pred.txt \
-    -out ${OUTPUT_NAME}
+python convert_pred_txt2json.py -q ${DATA_RAW_DIR}/tst.json \
+    -p ${OUT_DIR}/test-pred.txt \
+    -o ${OUTPUT_NAME}

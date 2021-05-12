@@ -3,3 +3,9 @@
 data/
 !data/convert_txt.py
 retriever/output_retriever_rank_bm25_all.json
+baseline/free_form/finetuning/output/
+baseline/free_form/finetuning/runs/
+baseline/span_based/cache/
+baseline/span_based/runs/
+prediction/
+!prediction/samples.json
