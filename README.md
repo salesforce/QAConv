@@ -184,6 +184,27 @@ The format of the data is as follow:
 
 ### Span-base
 
+* Preprocess
+```console
+❱❱❱ cd baseline/span_based
+❱❱❱ python preproc.py
+```
+
+* Training
+```console
+❱❱❱ ./run_qa.sh
+```
+
+* Inference 
+```console
+❱❱❱ python test_pipe.py --gpu 0
+```
+
+* Evaluation
+```console
+❱❱❱ cd ../../
+❱❱❱ python evaluate.py data/tst.json prediction/ --folder
+```
 
 ## Report
 Please create an issue or send email to wu.jason@salesforce.com to report any questions/bugs/etc.
