@@ -1,3 +1,11 @@
+"""
+ * Copyright (c) 2021, salesforce.com, inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+ * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
+"""
+
 import json
 import os
 
@@ -7,7 +15,7 @@ mapping = {
     "tst": "test"
 }
 
-for method in ["bm25"]:
+for method in ["bm25", "dpr"]:
 
     output_folder = "../data/nmt-{}".format(method)
     if not os.path.exists(output_folder):
@@ -17,6 +25,8 @@ for method in ["bm25"]:
 
     if method == "bm25":
         retriever_json = json.load(open("output_retriever_rank_bm25.json"))
+    elif method == "dpr":
+        retriever_json = json.load(open("output_retriever_rank_dpr-wiki.json"))
     
     retriever_json = {s["id"]:s["retrieved_article_segment_id"] for s in retriever_json}
 

@@ -1,3 +1,11 @@
+"""
+ * Copyright (c) 2021, salesforce.com, inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+ * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
+"""
+
 import json
 import os
 import numpy as np
@@ -25,4 +33,3 @@ for qa_pair in ques_json:
 
 for k in [1,3,5,10]:
     print("BM25 Recall@{}".format(k), recall_k(match_position, k))
-

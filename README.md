@@ -5,18 +5,23 @@ This repository maintains the QAConv dataset, a question answering dataset on in
 
 Paper: [QAConv: Question Answering on Informative Conversations]()
 
-Authors: Chien-Sheng (Jason) Wu, Andrea Madotto, Wenhao Liu, and Caiming Xiong
-
 ## Citation
 Please cite our work if you use the data or code in this repository
+```
 
+```
+
+## Ethics
+We have used only the publicly available transcripts data and adhere to their only-for-research-purpose guideline.
+
+As conversations may have biased views, the transcripts and QA pairs will likely contain them. The content of the transcripts and summaries only reflect the views of the speakers, and should be viewed with discretion.
 
 ## Leaderboard
 
 If you submit papers on QAConv, please consider sending a pull request to merge your results onto the leaderboard. By submitting, you acknowledge that your results are obtained without training on the val/test split and tuned on the val split not the test split. 
 
-### Chunk Mode Performance
-##### Zero-Shot
+#### Chunk Mode Performance
+* Zero-Shot
 |                             |     EM    |   F1  |  FZ-R |
 |-----------------------------|:---------:|:-----:|:-----:|
 | Human Performance           |   79.99   | 89.87 | 92.33 |
@@ -31,7 +36,7 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 | DistilBERT-Base (SQuAD 2.0) |   46.50   | 52.79 | 63.30 |
 | BERT-Base (SQuAD 2.0)       |   42.73   | 49.67 | 60.99 |
 
-##### Fine-Tune
+* Fine-Tune
 |                             |    EM    |   F1  |  FZ-R |
 |-----------------------------|:--------:|:-----:|:-----:|
 | T5-3B (UnifiedQA)           |   75.21  | 84.14 | 87.47 |
@@ -43,8 +48,8 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 | BERT-Base (SQuAD 2.0)       |   66.37  | 76.29 | 81.25 |
 | DistilBERT-Base (SQuAD 2.0) |   63.69  | 73.94 | 79.30 |
 
-### Full Mode Performance
-##### Zero-Shot
+#### Full Mode Performance
+* Zero-Shot
 |                                    |     EM    |   F1  |  FZ-R | 
 |:----------------------------------:|:---------:|:-----:|:-----:|
 | BM25 + T5-3B (UnifiedQA)           |   45.87   | 55.24 | 64.83 | 
@@ -56,7 +61,7 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 | BM25 + DistilBERT-Base (SQuAD 2.0) |   33.66   | 38.19 | 52.28 | 
 | BM25 + BERT-Base (SQuAD 2.0)       |   30.80   | 35.80 | 50.50 | 
 
-##### Fine-Tune
+* Fine-Tune
 |                                    |    EM    |   F1  |  FZ-R | 
 |:----------------------------------:|:--------:|:-----:|:-----:|
 | BM25 + T5-3B (UnifiedQA)           |   51.44  | 58.80 | 68.10 | 
@@ -145,10 +150,13 @@ If you encounter error while installing fairscale with error message `AttributeE
 
 
 ### Retriever
+* Run BM25 (./retriever)
 ```console
-❱❱❱ cd ./retriever
 ❱❱❱ ./run_retriver.sh
 ```
+
+* DPR-wiki
+We release the retrieved top-1 results at `./retriever/output_retriever_rank_dpr-wiki.json`. Please check the [DPR repository](https://github.com/facebookresearch/DPR) for details.
 
 ### Free-form
 
@@ -171,6 +179,7 @@ If you encounter error while installing fairscale with error message `AttributeE
 ```console
 ❱❱❱ ./run_eval.sh 0 ../../../data/nmt/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base output/qaconv-allenai/unifiedqa-t5-base/prediction/
 ❱❱❱ ./run_eval.sh 0 ../../../data/nmt-bm25/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base-bm25 output/qaconv-allenai/unifiedqa-t5-base/prediction-bm25/
+❱❱❱ ./run_eval.sh 0 ../../../data/nmt-dpr/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base-dprwiki output/qaconv-allenai/unifiedqa-t5-base/prediction-dprwiki/
 ```
 
 ### Span-base
@@ -191,14 +200,14 @@ If you encounter error while installing fairscale with error message `AttributeE
 ❱❱❱ python test_pipe.py --gpu 0
 ```
 
-### Evaluation (./)
+### Evaluation 
 
-* Evaluate one single prediction file
+* Evaluate one single prediction file (./)
 ```console
 ❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-zeroshot.json
 ```
 
-* Evaluate the whole folder with all the prediction files
+* Evaluate the whole folder with all the prediction files (./)
 ```console
 ❱❱❱ python evaluate.py data/tst.json prediction/ --folder
 ```
