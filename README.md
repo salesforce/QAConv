@@ -22,6 +22,7 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 
 #### Chunk Mode Performance
 * Zero-Shot
+
 |                             |     EM    |   F1  |  FZ-R |
 |-----------------------------|:---------:|:-----:|:-----:|
 | Human Performance           |   79.99   | 89.87 | 92.33 |
@@ -37,6 +38,7 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 | BERT-Base (SQuAD 2.0)       |   42.73   | 49.67 | 60.99 |
 
 * Fine-Tune
+
 |                             |    EM    |   F1  |  FZ-R |
 |-----------------------------|:--------:|:-----:|:-----:|
 | T5-3B (UnifiedQA)           |   75.21  | 84.14 | 87.47 |
@@ -50,6 +52,7 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 
 #### Full Mode Performance
 * Zero-Shot
+
 |                                    |     EM    |   F1  |  FZ-R | 
 |:----------------------------------:|:---------:|:-----:|:-----:|
 | BM25 + T5-3B (UnifiedQA)           |   45.87   | 55.24 | 64.83 | 
@@ -62,6 +65,7 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 | BM25 + BERT-Base (SQuAD 2.0)       |   30.80   | 35.80 | 50.50 | 
 
 * Fine-Tune
+
 |                                    |    EM    |   F1  |  FZ-R | 
 |:----------------------------------:|:--------:|:-----:|:-----:|
 | BM25 + T5-3B (UnifiedQA)           |   51.44  | 58.80 | 68.10 | 
