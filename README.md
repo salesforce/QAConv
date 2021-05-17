@@ -3,18 +3,18 @@
 ## Overview
 This repository maintains the QAConv dataset, a question answering dataset on informative conversations including business emails, panel discussions, and work channels.
 
-Paper: [QAConv: Question Answering on Informative Conversations]()
+[QAConv: Question Answering on Informative Conversations](https://arxiv.org/abs/2105.06912)
 
 ## Citation
 Please cite our work if you use the data or code in this repository
 ```
-
+@article{wu2021qaconv,
+  title={QAConv: Question Answering on Informative Conversations},
+  author={Wu, Chien-Sheng and Madotto, Andrea and Liu, Wenhao and Fung, Pascale and Xiong, Caiming},
+  journal={arXiv preprint arXiv:2105.06912},
+  year={2021}
+}
 ```
-
-## Ethics
-We have used only the publicly available transcripts data and adhere to their only-for-research-purpose guideline.
-
-As conversations may have biased views, the transcripts and QA pairs will likely contain them. The content of the transcripts and summaries only reflect the views of the speakers, and should be viewed with discretion.
 
 ## Leaderboard
 
@@ -216,6 +216,9 @@ We release the retrieved top-1 results at `./retriever/output_retriever_rank_dpr
 ❱❱❱ python evaluate.py data/tst.json prediction/ --folder
 ```
 
+## Ethics
+We have used only the publicly available transcripts data and adhere to their guideline, for example, the Media data is for research-purpose only and cannot be used for commercial purpose. 
+As conversations may have biased views, for example, specific political opinions from speakers, the transcripts and QA pairs will likely contain them. The content of the transcripts and summaries only reflect the views of the speakers, not the authors' point-of-views. We would like to remind our dataset users that there could have potential bias, toxicity, and subjective opinions in the selected conversations which may impact model training. Please view the content and data usage with discretion.
 
 ## Report
 Please create an issue or send an email to wu.jason@salesforce.com for any questions/bugs/etc.
