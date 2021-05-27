@@ -152,12 +152,13 @@ Unzip the `data.zip` file and files below are shown under the data folder.
 
 You can load our trained QA models using the huggingface library. 
 
+### Free-form
+
 * t5-base: Salesforce/qaconv-unifiedqa-t5-base
 * t5-large: Salesforce/qaconv-unifiedqa-t5-large
 * t5-3B: Salesforce/qaconv-unifiedqa-t5-3b
 
-You can directly run the above trained model on any conversations, for example, 
-
+You can directly run the trained model on any conversations, 
 ```
 from transformers import AutoTokenizer, T5ForConditionalGeneration
 
@@ -174,9 +175,25 @@ def run_model(input_string, **generator_args):
 ```
 For instance, here is how you can use it to answer a question (question and conversation are separated by </s>):
 ```
-answer = run_model("Why Salesforce accquire Slack? </s> Jason: Boom! Check the news of Salesforce. Andrea: Wowm don't know why they want to accquire Slack. Jason: This will give them a unified platform for connecting employees, customers and partners. Debbie: How much did they pay? Andrea: $27.7 billion I saw. Debbie: $$$.")
+answer = run_model("Why Salesforce accquire Slack? </s> Jason: Boom! Check the news of Salesforce. Andrea: Wowm don't know why they want to accquire Slack. Jason: This will give them a unified platform for connecting employees, customers and partners. Debbie: How much did they pay? Andrea: $27.7 billion I saw.")
 ```
 which gives `['To have a unified platform for connecting employees, customers and partners.']`
+
+### Span-base
+* roberta-large: Salesforce/qaconv-roberta-large-squad2
+* bert-large: Salesforce/qaconv-bert-large-uncased-whole-word-masking-squad2
+
+You can directly run the trained model on any conversations, 
+```
+from transformers import pipeline
+qa_pipeline = pipeline("question-answering",model="Salesforce/qaconv-roberta-large-squad2")
+```
+For instance, here is how you can use it to answer a question
+```
+answer = qa_pipeline(question="Why Salesforce accquire Slack?", context="Jason: Boom! Check the news of Salesforce. Andrea: Wowm don't know why they want to accquire Slack. Jason: This will give them a unified platform for connecting employees, customers and partners. Debbie: How much did they pay? Andrea: $27.7 billion I saw.", handle_impossible_answer=True)
+```
+which gives `{'score': 0.33785736560821533, 'start': 127, 'end': 194, 'answer': 'a unified platform for connecting employees, customers and partners'}`
+
 
 ## Running Baselines
 
