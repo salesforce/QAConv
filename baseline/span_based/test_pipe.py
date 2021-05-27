@@ -71,7 +71,7 @@ if __name__ == "__main__":
         run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="dpr")
 
     ## finetuned models
-    for mod in ["save/distilbert","save/bert-base","save/bert-large-largebsz","save/roberta-base","save/roberta-large"]:
+    for mod in ["save/distilbert","save/bert-base","save/bert-large","save/roberta-base","save/roberta-large"]:
         name = mod.split('/')[1] if "/" in mod else mod
         
         pred_path = f"../../prediction/{name}-finetuned.json"
