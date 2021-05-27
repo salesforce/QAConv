@@ -1,9 +1,8 @@
-# QAConv
+# QAConv: Question Answering on Informative Conversations
 
-## Overview
-This repository maintains the QAConv dataset, a question answering dataset on informative conversations including business emails, panel discussions, and work channels.
+[Chien-Sheng (Jason) Wu](https://jasonwu0731.github.io/), [Andrea Madotto](https://andreamad8.github.io/), [Wenhao Liu](https://www.linkedin.com/in/owenwenhao), [Pascale Fung](https://pascale.home.ece.ust.hk/about.html), [Caiming Xiong](http://cmxiong.com/).
 
-[QAConv: Question Answering on Informative Conversations](https://arxiv.org/abs/2105.06912)
+[[paper]](https://arxiv.org/abs/2105.06912) [[blog]]()
 
 ## Citation
 Please cite our work if you use the data or code in this repository
@@ -15,6 +14,10 @@ Please cite our work if you use the data or code in this repository
   year={2021}
 }
 ```
+
+## Abstract
+This paper introduces QAConv, a new question answering (QA) dataset that uses conversations as a knowledge source. We focus on informative conversations including business emails, panel discussions, and work channels. Unlike opendomain and task-oriented dialogues, these conversations are usually long, complex, asynchronous, and involve strong domain knowledge. In total, we collect 34,204 QA pairs, including span-based, free-form, and unanswerable questions, from 10,259 selected conversations with both human-written and machine-generated questions. We segment long conversations into chunks, and use a question generator and dialogue summarizer as auxiliary tools to collect multi-hop questions. The dataset has two testing scenarios, chunk mode and full mode, depending on whether the grounded chunk is provided or retrieved from a large conversational pool. Experimental results show that state-of-the-art QA systems trained on existing QA datasets have limited zero-shot ability and tend to predict our questions as unanswerable. Fine-tuning such systems on our corpus can achieve significant improvement up to 23.6% and 13.6% in both chunk mode and full mode, respectively.
+
 
 ## Leaderboard
 
@@ -145,13 +148,42 @@ Unzip the `data.zip` file and files below are shown under the data folder.
 }
 ```
 
+## Trained Models
+
+You can load our trained QA models using the huggingface library. 
+
+* t5-base: Salesforce/qaconv-unifiedqa-t5-base
+* t5-large: Salesforce/qaconv-unifiedqa-t5-large
+* t5-3B: Salesforce/qaconv-unifiedqa-t5-3b
+
+You can directly run the above trained model on any conversations, for example, 
+
+```
+from transformers import AutoTokenizer, T5ForConditionalGeneration
+
+model_name = "Salesforce/qaconv-unifiedqa-t5-base" # you can specify the model size here
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = T5ForConditionalGeneration.from_pretrained(model_name)
+
+def run_model(input_string, **generator_args):
+    generator_args["max_length"] = 20
+    generator_args["min_length"] = 1
+    input_ids = tokenizer.encode(input_string, return_tensors="pt")
+    res = model.generate(input_ids, **generator_args)
+    return tokenizer.batch_decode(res, skip_special_tokens=True)
+```
+For instance, here is how you can use it to answer a question (question and conversation are separated by </s>):
+```
+answer = run_model("Why Salesforce accquire Slack? </s> Jason: Boom! Check the news of Salesforce. Andrea: Wowm don't know why they want to accquire Slack. Jason: This will give them a unified platform for connecting employees, customers and partners. Debbie: How much did they pay? Andrea: $27.7 billion I saw. Debbie: $$$.")
+```
+which gives `['To have a unified platform for connecting employees, customers and partners.']`
+
 ## Running Baselines
 
 ### Dependency
 First, install requirements by `pip install -r requirements.txt`. 
 
 If you encounter error while installing fairscale with error message `AttributeError: type object 'Callable' has no attribute '_abc_registry'`, try `pip uninstall typing` then redo the installation. 
-
 
 ### Retriever
 * Run BM25 (./retriever)
