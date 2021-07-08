@@ -137,7 +137,7 @@ Unzip the `data.zip` file and files below are shown under the data folder.
 ### Retriever
 ```console
 ❱❱❱ cd retriever
-❱❱❱ ./run_retriver.sh
+❱❱❱ ./run_retriver.sh tst
 ```
 
 ### Free-form

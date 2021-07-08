@@ -3,11 +3,17 @@ import os
 from rank_bm25 import BM25Okapi
 from tqdm import tqdm
 from utils import get_chunks_by_qa
+import argparse
 
-ques_json = json.load(open("../data/tst.json"))
+parser = argparse.ArgumentParser(description='')
+parser.add_argument('-d', '--data_name', default='tst')
+args = parser.parse_args()
+data_name = args.data_name
+
+ques_json = json.load(open("../data/{}.json".format(data_name)))
 article_seg_json = json.load(open("../data/article_segment.json"))
 
-output_name_all = "output_retriever_rank_bm25_all.json"
+output_name_all = "output_retriever_rank_bm25_all_{}.json".format(data_name)
 if not os.path.exists(output_name_all):
     output_retriever_rank = {}
     for qa_pair in tqdm(ques_json):
@@ -38,5 +44,5 @@ for key, value in output_retriever_rank.items():
         "id": key,
         "retrieved_article_segment_id": sort_dict[0][0] 
     })
-with open("output_retriever_rank_bm25.json", "w") as fout:
+with open("output_retriever_rank_bm25_{}.json".format(data_name), "w") as fout:
     json.dump(output_retriever, fout, indent=2)
