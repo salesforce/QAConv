@@ -29,13 +29,9 @@ for method in ["bm25", "dpr"]:
     article_json = json.load(open("../data/article_segment.json"))
 
     if method == "bm25":
-<<<<<<< HEAD
         retriever_json = json.load(open("output_retriever_rank_bm25_{}.json".format(data_name)))
-=======
-        retriever_json = json.load(open("output_retriever_rank_bm25.json"))
     elif method == "dpr":
         retriever_json = json.load(open("output_retriever_rank_dpr-wiki.json"))
->>>>>>> e028031209b4766d06efa2b837585a2c59c04adf
     
     retriever_json = {s["id"]:s["retrieved_article_segment_id"] for s in retriever_json}
 
