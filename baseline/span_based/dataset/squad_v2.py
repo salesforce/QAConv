@@ -1,4 +1,4 @@
-"""TODO(squad_v2): Add a description here."""
+"""(squad_v2): Add a description here."""
 
 
 import json

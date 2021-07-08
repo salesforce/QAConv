@@ -1,18 +1,31 @@
-# QAConv
+# QAConv: Question Answering on Informative Conversations
 
-## Overview
-This repository maintains the QAConv dataset, a question answering dataset on informative conversations including business emails, panel discussions, and work channels.
+[Chien-Sheng (Jason) Wu](https://jasonwu0731.github.io/), [Andrea Madotto](https://andreamad8.github.io/), [Wenhao Liu](https://www.linkedin.com/in/owenwenhao), [Pascale Fung](https://pascale.home.ece.ust.hk/about.html), [Caiming Xiong](http://cmxiong.com/).
 
-Paper: [QAConv: Question Answering on Informative Conversations]()
+[[paper]](https://arxiv.org/abs/2105.06912) [[blog]]()
 
-Authors: Chien-Sheng (Jason) Wu, Andrea Madotto, Wenhao Liu, and Caiming Xiong
+## Citation
+Please cite our work if you use the data or code in this repository
+```
+@article{wu2021qaconv,
+  title={QAConv: Question Answering on Informative Conversations},
+  author={Wu, Chien-Sheng and Madotto, Andrea and Liu, Wenhao and Fung, Pascale and Xiong, Caiming},
+  journal={arXiv preprint arXiv:2105.06912},
+  year={2021}
+}
+```
+
+## Abstract
+This paper introduces QAConv, a new question answering (QA) dataset that uses conversations as a knowledge source. We focus on informative conversations including business emails, panel discussions, and work channels. Unlike opendomain and task-oriented dialogues, these conversations are usually long, complex, asynchronous, and involve strong domain knowledge. In total, we collect 34,204 QA pairs, including span-based, free-form, and unanswerable questions, from 10,259 selected conversations with both human-written and machine-generated questions. We segment long conversations into chunks, and use a question generator and dialogue summarizer as auxiliary tools to collect multi-hop questions. The dataset has two testing scenarios, chunk mode and full mode, depending on whether the grounded chunk is provided or retrieved from a large conversational pool. Experimental results show that state-of-the-art QA systems trained on existing QA datasets have limited zero-shot ability and tend to predict our questions as unanswerable. Fine-tuning such systems on our corpus can achieve significant improvement up to 23.6% and 13.6% in both chunk mode and full mode, respectively.
+
 
 ## Leaderboard
 
 If you submit papers on QAConv, please consider sending a pull request to merge your results onto the leaderboard. By submitting, you acknowledge that your results are obtained without training on the val/test split and tuned on the val split not the test split. 
 
-### Chunk Mode Performance
-##### Zero-Shot
+#### Chunk Mode Performance
+* Zero-Shot
+
 |                             |     EM    |   F1  |  FZ-R |
 |-----------------------------|:---------:|:-----:|:-----:|
 | Human Performance           |   79.99   | 89.87 | 92.33 |
@@ -27,7 +40,8 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 | DistilBERT-Base (SQuAD 2.0) |   46.50   | 52.79 | 63.30 |
 | BERT-Base (SQuAD 2.0)       |   42.73   | 49.67 | 60.99 |
 
-##### Fine-Tune
+* Fine-Tune
+
 |                             |    EM    |   F1  |  FZ-R |
 |-----------------------------|:--------:|:-----:|:-----:|
 | T5-3B (UnifiedQA)           |   75.21  | 84.14 | 87.47 |
@@ -39,8 +53,9 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 | BERT-Base (SQuAD 2.0)       |   66.37  | 76.29 | 81.25 |
 | DistilBERT-Base (SQuAD 2.0) |   63.69  | 73.94 | 79.30 |
 
-### Full Mode Performance
-##### Zero-Shot
+#### Full Mode Performance
+* Zero-Shot
+
 |                                    |     EM    |   F1  |  FZ-R | 
 |:----------------------------------:|:---------:|:-----:|:-----:|
 | BM25 + T5-3B (UnifiedQA)           |   45.87   | 55.24 | 64.83 | 
@@ -52,7 +67,8 @@ If you submit papers on QAConv, please consider sending a pull request to merge 
 | BM25 + DistilBERT-Base (SQuAD 2.0) |   33.66   | 38.19 | 52.28 | 
 | BM25 + BERT-Base (SQuAD 2.0)       |   30.80   | 35.80 | 50.50 | 
 
-##### Fine-Tune
+* Fine-Tune
+
 |                                    |    EM    |   F1  |  FZ-R | 
 |:----------------------------------:|:--------:|:-----:|:-----:|
 | BM25 + T5-3B (UnifiedQA)           |   51.44  | 58.80 | 68.10 | 
@@ -132,71 +148,127 @@ Unzip the `data.zip` file and files below are shown under the data folder.
 }
 ```
 
+## Trained Models
+
+You can load our trained QA models using the huggingface library. 
+
+### Free-form
+
+* t5-base: Salesforce/qaconv-unifiedqa-t5-base
+* t5-large: Salesforce/qaconv-unifiedqa-t5-large
+* t5-3B: Salesforce/qaconv-unifiedqa-t5-3b
+
+You can directly run the trained model on any conversations, 
+```
+from transformers import AutoTokenizer, T5ForConditionalGeneration
+
+model_name = "Salesforce/qaconv-unifiedqa-t5-base" # you can specify the model size here
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = T5ForConditionalGeneration.from_pretrained(model_name)
+
+def run_model(input_string, **generator_args):
+    generator_args["max_length"] = 20
+    generator_args["min_length"] = 1
+    input_ids = tokenizer.encode(input_string, return_tensors="pt")
+    res = model.generate(input_ids, **generator_args)
+    return tokenizer.batch_decode(res, skip_special_tokens=True)
+```
+For instance, here is how you can use it to answer a question (question and conversation are separated by </s>):
+```
+answer = run_model("Why Salesforce accquire Slack? </s> Jason: Boom! Check the news of Salesforce. Andrea: Wowm don't know why they want to accquire Slack. Jason: This will give them a unified platform for connecting employees, customers and partners. Debbie: How much did they pay? Andrea: $27.7 billion I saw.")
+```
+which gives `['To have a unified platform for connecting employees, customers and partners.']`
+
+### Span-base
+* roberta-large: Salesforce/qaconv-roberta-large-squad2
+* bert-large: Salesforce/qaconv-bert-large-uncased-whole-word-masking-squad2
+
+You can directly run the trained model on any conversations, 
+```
+from transformers import pipeline
+qa_pipeline = pipeline("question-answering",model="Salesforce/qaconv-roberta-large-squad2")
+```
+For instance, here is how you can use it to answer a question
+```
+answer = qa_pipeline(question="Why Salesforce accquire Slack?", context="Jason: Boom! Check the news of Salesforce. Andrea: Wowm don't know why they want to accquire Slack. Jason: This will give them a unified platform for connecting employees, customers and partners. Debbie: How much did they pay? Andrea: $27.7 billion I saw.", handle_impossible_answer=True)
+```
+which gives `{'score': 0.33785736560821533, 'start': 127, 'end': 194, 'answer': 'a unified platform for connecting employees, customers and partners'}`
+
+
 ## Running Baselines
 
+### Dependency
+First, install requirements by `pip install -r requirements.txt`. 
+
+If you encounter error while installing fairscale with error message `AttributeError: type object 'Callable' has no attribute '_abc_registry'`, try `pip uninstall typing` then redo the installation. 
+
 ### Retriever
+* Run BM25 (./retriever)
 ```console
 ❱❱❱ cd retriever
 ❱❱❱ ./run_retriver.sh tst
 ```
 
+* DPR-wiki
+We release the retrieved top-1 results at `./retriever/output_retriever_rank_dpr-wiki.json`. Please check the [DPR repository](https://github.com/facebookresearch/DPR) for details.
+
 ### Free-form
 
-* Preprocess
+* Preprocess (./data)
 ```console
-❱❱❱ cd data
 ❱❱❱ python convert_txt.py
 ```
 
-* Zero-shot
+* Zero-shot (./baseline/free_form/)
 ```console
-❱❱❱ cd baseline/free_form/
 ❱❱❱ ./run_zs.sh
 ```
 
-* Training
+* Training (./baseline/free_form/finetuning/)
 ```console
-❱❱❱ cd baseline/free_form/finetuning/
 ❱❱❱ ./run_finetune.sh 0,1 2 allenai/unifiedqa-t5-base 8
 ```
 
-* Inference
+* Inference (./baseline/free_form/finetuning/)
 ```console
-❱❱❱ cd baseline/free_form/finetuning/
 ❱❱❱ ./run_eval.sh 0 ../../../data/nmt/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base output/qaconv-allenai/unifiedqa-t5-base/prediction/
 ❱❱❱ ./run_eval.sh 0 ../../../data/nmt-bm25/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base-bm25 output/qaconv-allenai/unifiedqa-t5-base/prediction-bm25/
-```
-
-* Evaluation
-```console
-❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-zeroshot.json
-❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base.json
-❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-bm25.json
+❱❱❱ ./run_eval.sh 0 ../../../data/nmt-dpr/ ../../../data/ output/qaconv-allenai/unifiedqa-t5-base/ unifiedqa-t5-base-dprwiki output/qaconv-allenai/unifiedqa-t5-base/prediction-dprwiki/
 ```
 
 ### Span-base
 
-* Preprocess
+* Preprocess (./baseline/span_based)
 ```console
-❱❱❱ cd baseline/span_based
+❱❱❱ cd ./baseline/span_based
 ❱❱❱ python preproc.py
 ```
 
-* Training
+* Training (./baseline/span_based)
 ```console
 ❱❱❱ ./run_qa.sh
 ```
 
-* Inference 
+* Inference (./baseline/span_based)
 ```console
 ❱❱❱ python test_pipe.py --gpu 0
 ```
 
-* Evaluation
+### Evaluation 
+
+* Evaluate one single prediction file (./)
 ```console
-❱❱❱ cd ../../
+❱❱❱ python evaluate.py data/tst.json prediction/unifiedqa-t5-base-zeroshot.json
+```
+
+* Evaluate the whole folder with all the prediction files (./)
+```console
 ❱❱❱ python evaluate.py data/tst.json prediction/ --folder
 ```
 
+## Ethics
+We have used only the publicly available transcripts data and adhere to their guideline, for example, the Media data is for research-purpose only and cannot be used for commercial purpose. 
+As conversations may have biased views, for example, specific political opinions from speakers, the transcripts and QA pairs will likely contain them. The content of the transcripts and summaries only reflect the views of the speakers, not the authors' point-of-views. We would like to remind our dataset users that there could have potential bias, toxicity, and subjective opinions in the selected conversations which may impact model training. Please view the content and data usage with discretion.
+
 ## Report
-Please create an issue or send email to wu.jason@salesforce.com to report any questions/bugs/etc.
+Please create an issue or send an email to wu.jason@salesforce.com for any questions/bugs/etc.

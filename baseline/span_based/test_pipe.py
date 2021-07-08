@@ -1,3 +1,11 @@
+"""
+ * Copyright (c) 2021, salesforce.com, inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+ * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
+"""
+
 from transformers import pipeline
 import json
 import os
@@ -16,7 +24,7 @@ def run_zeroshot(fw_name, quesion_json, article_json, model, gpu, retriver="None
         elif retriver == "dpr":
             print("Use DPR retrieved dialogue")
 
-            retrieved = json.load(open("../../retriever/myEfficientQA/output_retriever_rank_dpr-wiki.json"))
+            retrieved = json.load(open("../../retriever/output_retriever_rank_dpr-wiki.json"))
             retrieve_article = {}
             for r in retrieved:
                 retrieve_article[r['id']] = r['retrieved_article_segment_id']
@@ -59,11 +67,11 @@ if __name__ == "__main__":
         pred_path = f"../../prediction/{name}-zero-shot_bm25.json"
         run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="bm25")
         
-        #pred_path = f"../../prediction/{name}-zero-shot_new_test_dpr.json"
-        #run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="dpr")
+        pred_path = f"../../prediction/{name}-zero-shot_dpr.json"
+        run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="dpr")
 
     ## finetuned models
-    for mod in ["save/distilbert","save/bert-base","save/bert-large-largebsz","save/roberta-base","save/roberta-large"]:
+    for mod in ["save/distilbert","save/bert-base","save/bert-large","save/roberta-base","save/roberta-large"]:
         name = mod.split('/')[1] if "/" in mod else mod
         
         pred_path = f"../../prediction/{name}-finetuned.json"
@@ -72,5 +80,5 @@ if __name__ == "__main__":
         pred_path = f"../../prediction/{name}-finetuned_bm25.json"
         run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="bm25")
         
-        #pred_path = f"../../prediction/{name}-finetuned_new_test_dpr.json"
-        #run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="dpr")
+        pred_path = f"../../prediction/{name}-finetuned_dpr.json"
+        run_zeroshot(pred_path, ques_json, article_json, mod,gpu=gpu,retriver="dpr")

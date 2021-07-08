@@ -1,5 +1,11 @@
 """
-Official evaluation script for QAConv.
+Official evaluation script for QAConv, modified from SQuAD 2.0.
+
+ * Copyright (c) 2021, salesforce.com, inc.
+ * All rights reserved.
+ * SPDX-License-Identifier: BSD-3-Clause
+ * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+
 """
 
 import argparse
