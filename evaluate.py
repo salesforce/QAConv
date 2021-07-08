@@ -22,6 +22,7 @@ from sklearn.metrics import f1_score
 def make_qid_to_has_ans(dataset):
   qid_to_has_ans = {}
   for qa in dataset:
+    #print(qa)
     qid_to_has_ans[qa['id']] = bool(qa['answers'])
   return qid_to_has_ans
 
