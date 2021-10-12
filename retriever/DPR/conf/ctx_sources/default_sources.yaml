@@ -1,0 +1,11 @@
+# @package _group_
+
+dpr_wiki:
+  _target_: dpr.data.retriever_data.CsvCtxSrc
+  file: data.wikipedia_split.psgs_w100
+  id_prefix: 'wiki:'
+ 
+qaconv:
+  _target_: dpr.data.retriever_data.CsvCtxSrc
+  file: "/home/wu.jason/QAConv/data/article_segment.tsv"
+  id_prefix: 'qaconv:'

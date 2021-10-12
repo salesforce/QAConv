@@ -1,0 +1,8 @@
+dpr/downloads/
+dpr/data/
+outputs
+downloads/
+article_segment_0
+qaconv_test_dpr_results.json
+qaconv_val_dpr_results.json
+*pyc

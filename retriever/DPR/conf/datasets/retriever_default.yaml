@@ -1,0 +1,41 @@
+# @package _group_
+
+nq_test:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: data.retriever.qas.nq-test
+
+nq_train:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: data.retriever.qas.nq-train
+
+nq_dev:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: data.retriever.qas.nq-dev
+
+trivia_test:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: data.retriever.qas.trivia-test
+
+trivia_train:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: data.retriever.qas.trivia-train
+
+trivia_dev:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: data.retriever.qas.trivia-dev
+
+webq_test:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: data.retriever.qas.webq-test
+  
+curatedtrec_test:
+  _target_: dpr.data.retriever_data.CsvQASrc
+  file: data.retriever.qas.curatedtrec-test
+
+qaconv_test:
+  _target_: dpr.data.retriever_data.JsonQASrc
+  file: "/home/wu.jason/QAConv/data/tst.json"
+
+qaconv_val:
+  _target_: dpr.data.retriever_data.JsonQASrc
+  file: "/home/wu.jason/QAConv/data/val.json"
