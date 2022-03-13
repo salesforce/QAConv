@@ -20,7 +20,7 @@ This paper introduces QAConv, a new question answering (QA) dataset that uses co
 
 
 ## Dataset
-Unzip the `data.zip` file and files below are shown under the data folder.
+Unzip the `dataset/data-v1.1-released-on-13-Mar-2022.zip` file and files below are shown under the data folder.
 
 * Question-Answer files (`trn.json`, `val.json`, `tst.json`)
 ```
@@ -212,7 +212,10 @@ As conversations may have biased views, for example, specific political opinions
 
 If you submit papers on QAConv, please consider sending a pull request to merge your results onto the leaderboard. By submitting, you acknowledge that your results are obtained without training on the val/test split and tuned on the val split not the test split. 
 
+P.S. There are two versions of the data (V1.0 and V1.1). The results shown below is from V1.1.
+
 #### Chunk Mode Performance
+
 * Zero-Shot
 
 <!-- V1.1 -->
