@@ -1,7 +1,9 @@
 V1.0 is released on May 2021.
 
-V1.1 is release on Apr 2022.
+V1.1 is released on Apr 2022.
 
 The differences of V1.0 and V1.1 are 1) they are small annotations changed, and 2) the data was shuffled to make it balanced for val and test set. 
 
 They still all shared the same article_full.json and article_segment.json. 
+
+The numbers reported on the latest paper (ACL 2022) are the one on V1.1
