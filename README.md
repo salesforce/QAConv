@@ -2,7 +2,7 @@
 
 [Chien-Sheng (Jason) Wu](https://jasonwu0731.github.io/), [Andrea Madotto](https://andreamad8.github.io/), [Wenhao Liu](https://www.linkedin.com/in/owenwenhao), [Pascale Fung](https://pascale.home.ece.ust.hk/about.html), [Caiming Xiong](http://cmxiong.com/).
 
-[[paper]](https://arxiv.org/abs/2105.06912) [[blog]]()
+[[paper]](https://arxiv.org/abs/2105.06912) [[blog]](https://blog.salesforceairesearch.com/slack-your-way-to-qa/)
 
 ## Citation
 Please cite our work if you use the data or code in this repository
